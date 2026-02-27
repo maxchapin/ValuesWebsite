@@ -1,10 +1,13 @@
 "use client";
 
 import React, { FormEvent, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import type L from "leaflet";
 
 type AgeRange = "21-24" | "25-29" | "30-34" | "35-39" | "40+";
 type RelationshipGoal = "serious" | "open" | "unsure";
+type AbVariant = "A" | "B";
+type BillingCycle = "monthly" | "annually";
 
 interface WaitlistFormData {
   email: string;
@@ -13,6 +16,20 @@ interface WaitlistFormData {
   relationshipGoal: RelationshipGoal;
   frustrations: string;
 }
+
+type FunnelEventName =
+  | "pageview_variant"
+  | "pricing_viewed"
+  | "get_started_clicked"
+  | "checkout_completed";
+
+type FunnelEvent = {
+  name: FunnelEventName;
+  ts: number;
+  variant: AbVariant;
+  price_point_monthly: number;
+  meta?: Record<string, unknown>;
+};
 
 const currentYear = new Date().getFullYear();
 
@@ -25,7 +42,69 @@ function scrollToWaitlist() {
   }
 }
 
-const WaitlistForm: React.FC = () => {
+function getCookieValue(name: string): string | null {
+  if (typeof document === "undefined") return null;
+  const parts = document.cookie.split(";").map((p) => p.trim());
+  const hit = parts.find((p) => p.startsWith(`${name}=`));
+  if (!hit) return null;
+  return decodeURIComponent(hit.slice(name.length + 1));
+}
+
+function setCookieValue(name: string, value: string) {
+  if (typeof document === "undefined") return;
+  const maxAge = 60 * 60 * 24 * 365;
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
+    value
+  )}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
+}
+
+function readVariantFromStorage(): AbVariant | null {
+  const fromCookie = getCookieValue("ab_variant");
+  if (fromCookie === "A" || fromCookie === "B") return fromCookie;
+  if (typeof window === "undefined") return null;
+  const fromLocal = window.localStorage.getItem("ab_variant");
+  if (fromLocal === "A" || fromLocal === "B") return fromLocal;
+  return null;
+}
+
+function persistVariant(variant: AbVariant) {
+  setCookieValue("ab_variant", variant);
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem("ab_variant", variant);
+  }
+}
+
+function bumpLocalStats(event: FunnelEvent) {
+  if (typeof window === "undefined") return;
+  const key = "wv_ab_stats_v1";
+  const raw = window.localStorage.getItem(key);
+  let parsed: Record<string, number> = {};
+  if (raw) {
+    try {
+      parsed = JSON.parse(raw) as Record<string, number>;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "[WickedValues:funnel] Failed to parse local stats, resetting.",
+        error
+      );
+      parsed = {};
+    }
+  }
+  const base = `${event.name}|v=${event.variant}|p=${event.price_point_monthly}`;
+  parsed[base] = (parsed[base] ?? 0) + 1;
+  window.localStorage.setItem(key, JSON.stringify(parsed));
+}
+
+function trackEvent(event: FunnelEvent) {
+  // eslint-disable-next-line no-console
+  console.log("[WickedValues:funnel]", event.name, event);
+  bumpLocalStats(event);
+}
+
+const WaitlistForm: React.FC<{ prefillEmail?: string }> = ({
+  prefillEmail
+}) => {
   const [formData, setFormData] = useState<WaitlistFormData>({
     email: "",
     firstName: "",
@@ -34,6 +113,11 @@ const WaitlistForm: React.FC = () => {
     frustrations: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!prefillEmail) return;
+    setFormData((prev) => (prev.email ? prev : { ...prev, email: prefillEmail }));
+  }, [prefillEmail]);
 
   const handleChange = (
     e:
@@ -249,18 +333,40 @@ const MapBackground: React.FC = () => {
   return (
     <div
       ref={mapRef}
-      className="pointer-events-none fixed inset-0 -z-10 h-full w-full opacity-40 [filter:grayscale(1)_contrast(1.1)]"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-30 [filter:grayscale(1)_contrast(1.1)]"
     />
   );
 };
 
 const HomePage: React.FC = () => {
+  const [variant, setVariant] = useState<AbVariant | null>(() =>
+    readVariantFromStorage()
+  );
+  const [heroEmail, setHeroEmail] = useState("");
+  const router = useRouter();
+
+  const resolvedVariant: AbVariant = variant ?? "A";
+  const monthlyPrice = resolvedVariant === "A" ? 12 : 22;
+
+  useEffect(() => {
+    const v = readVariantFromStorage() ?? (Math.random() < 0.5 ? "A" : "B");
+    setVariant(v);
+    persistVariant(v);
+
+    trackEvent({
+      name: "pageview_variant",
+      ts: Date.now(),
+      variant: v,
+      price_point_monthly: v === "A" ? 12 : 22
+    });
+  }, []);
+
   return (
     <main className="relative min-h-screen text-slate-50">
       <MapBackground />
-      <div className="pointer-events-none fixed inset-0 -z-5 bg-slate-900/40" />
+      <div className="pointer-events-none fixed inset-0 z-10 bg-slate-950/60" />
       {/* Page container */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-10">
+      <div className="relative z-20 mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-10">
         {/* Header / Hero */}
         <header className="mb-10 border-b border-slate-700/50 pb-6 sm:pb-8">
           <div className="flex items-center justify-between">
@@ -304,6 +410,8 @@ const HomePage: React.FC = () => {
                 <input
                   type="email"
                   placeholder="you@example.com"
+                  value={heroEmail}
+                  onChange={(e) => setHeroEmail(e.target.value)}
                   className="w-full max-w-xs rounded-full border border-slate-500/60 bg-slate-900/70 px-4 py-2 text-sm text-slate-50 placeholder:text-slate-400 shadow-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:max-w-sm"
                 />
                 <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -314,10 +422,10 @@ const HomePage: React.FC = () => {
                     Join the waitlist
                   </button>
                   <button
-                    onClick={scrollToWaitlist}
+                    onClick={() => router.push("/premium")}
                     className="text-sm font-medium text-indigo-100 underline-offset-4 hover:underline"
                   >
-                    Apply for early access
+                    Get Premium for ${monthlyPrice}
                   </button>
                 </div>
               </div>
@@ -450,47 +558,43 @@ const HomePage: React.FC = () => {
               <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)] lg:items-start">
                 {/* Early access benefits */}
                 <div>
-              <h2 className="text-xl font-bold tracking-tight text-slate-50 sm:text-2xl">
+                  <h2 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                     Join the early access list
                   </h2>
-                  <p className="mt-2 text-sm text-slate-900">
+                  <p className="mt-2 text-sm text-slate-700">
                     Help us test Wicked Values in Boston and shape how a
                     values-first dating app should actually work.
                   </p>
 
                   <ul className="mt-4 space-y-2 text-sm text-slate-900">
                     <li className="flex gap-2">
-                      <span className="mt-0.5 text-indigo-500">✓</span>
+                      <span className="mt-0.5 text-indigo-600">✓</span>
                       <span>Priority access when we launch in Boston.</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-0.5 text-indigo-500">✓</span>
-                      <span>
-                        Invites to early Wicked Values IRL meetups.
-                      </span>
+                      <span className="mt-0.5 text-indigo-600">✓</span>
+                      <span>Invites to early Wicked Values IRL meetups.</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-0.5 text-indigo-500">✓</span>
+                      <span className="mt-0.5 text-indigo-600">✓</span>
                       <span>Shaping features based on your feedback.</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-0.5 text-indigo-500">✓</span>
-                      <span>
-                        A say in how we build a better dating culture.
-                      </span>
+                      <span className="mt-0.5 text-indigo-600">✓</span>
+                      <span>A say in how we build a better dating culture.</span>
                     </li>
                   </ul>
 
-                  <p className="mt-4 text-xs text-slate-800">
-                    We&apos;re keeping this first group intentionally small so
-                    we can actually listen, iterate, and build something that
-                    works for Boston—not just for a pitch deck.
+                  <p className="mt-4 text-xs text-slate-600">
+                    We&apos;re keeping this first group intentionally small so we
+                    can actually listen, iterate, and build something that works
+                    for Boston—not just for a pitch deck.
                   </p>
                 </div>
 
-                {/* Form */}
+                {/* Waitlist / application form */}
                 <div>
-                  <WaitlistForm />
+                  <WaitlistForm prefillEmail={heroEmail} />
                 </div>
               </div>
             </div>
@@ -583,4 +687,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-
