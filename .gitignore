@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+node_modules/
+.next/
+out/
+build/
+*.log
+.env*.local
+=======
+node_modules
+>>>>>>> f668057433e39368a202a5fa0dc616ba59c23b49
