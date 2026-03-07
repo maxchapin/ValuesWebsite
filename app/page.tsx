@@ -339,9 +339,7 @@ const MapBackground: React.FC = () => {
 };
 
 const HomePage: React.FC = () => {
-  const [variant, setVariant] = useState<AbVariant | null>(() =>
-    readVariantFromStorage()
-  );
+  const [variant, setVariant] = useState<AbVariant | null>(null);
   const [heroEmail, setHeroEmail] = useState("");
   const router = useRouter();
 

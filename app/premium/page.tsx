@@ -145,9 +145,7 @@ const MapBackground: React.FC = () => {
 const PremiumPage: React.FC = () => {
   const router = useRouter();
 
-  const [variant, setVariant] = useState<AbVariant | null>(() =>
-    readVariantFromStorage()
-  );
+  const [variant, setVariant] = useState<AbVariant | null>(null);
   const [selectedCycle, setSelectedCycle] = useState<BillingCycle>("monthly");
   const [checkoutName, setCheckoutName] = useState("");
   const [checkoutEmail, setCheckoutEmail] = useState("");
