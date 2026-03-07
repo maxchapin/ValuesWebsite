@@ -3,6 +3,7 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type L from "leaflet";
+import { addToWaitlist } from "../lib/waitlist";
 
 type AgeRange = "21-24" | "25-29" | "30-34" | "35-39" | "40+";
 type RelationshipGoal = "serious" | "open" | "unsure";
@@ -113,6 +114,8 @@ const WaitlistForm: React.FC<{ prefillEmail?: string }> = ({
     frustrations: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!prefillEmail) return;
@@ -132,13 +135,24 @@ const WaitlistForm: React.FC<{ prefillEmail?: string }> = ({
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // TODO: tracking for waitlist signups
-    console.log("Wicked Values waitlist submission:", formData);
-
-    setIsSubmitted(true);
+    setSubmitError(null);
+    setIsLoading(true);
+    const { ok, error } = await addToWaitlist({
+      email: formData.email,
+      first_name: formData.firstName || undefined,
+      age_range: formData.ageRange,
+      relationship_goal: formData.relationshipGoal,
+      frustrations: formData.frustrations || undefined,
+      source: "form"
+    });
+    setIsLoading(false);
+    if (ok) {
+      setIsSubmitted(true);
+    } else {
+      setSubmitError(error ?? "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -252,10 +266,14 @@ const WaitlistForm: React.FC<{ prefillEmail?: string }> = ({
           <div className="space-y-2">
             <button
               type="submit"
-              className="inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 sm:w-auto"
+              disabled={isLoading}
+              className="inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed sm:w-auto"
             >
-              Join the waitlist
+              {isLoading ? "Joining…" : "Join the waitlist"}
             </button>
+            {submitError && (
+              <p className="text-sm text-rose-600">{submitError}</p>
+            )}
             <p className="text-xs text-slate-500">
               No spam. We&apos;ll only email you about Wicked Values.
             </p>
@@ -341,10 +359,27 @@ const MapBackground: React.FC = () => {
 const HomePage: React.FC = () => {
   const [variant, setVariant] = useState<AbVariant | null>(null);
   const [heroEmail, setHeroEmail] = useState("");
+  const [heroSubmitted, setHeroSubmitted] = useState(false);
+  const [heroLoading, setHeroLoading] = useState(false);
+  const [heroError, setHeroError] = useState<string | null>(null);
   const router = useRouter();
 
   const resolvedVariant: AbVariant = variant ?? "A";
   const monthlyPrice = resolvedVariant === "A" ? 12 : 22;
+
+  async function handleHeroWaitlistSubmit() {
+    const email = heroEmail.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+    setHeroError(null);
+    setHeroLoading(true);
+    const { ok, error } = await addToWaitlist({ email, source: "hero" });
+    setHeroLoading(false);
+    if (ok) {
+      setHeroSubmitted(true);
+    } else {
+      setHeroError(error ?? "Something went wrong. Please try again.");
+    }
+  }
 
   useEffect(() => {
     const v = readVariantFromStorage() ?? (Math.random() < 0.5 ? "A" : "B");
@@ -405,27 +440,49 @@ const HomePage: React.FC = () => {
               </p>
 
               <div className="mt-6 flex flex-col items-center gap-3">
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  value={heroEmail}
-                  onChange={(e) => setHeroEmail(e.target.value)}
-                  className="w-full max-w-xs rounded-full border border-slate-500/60 bg-slate-900/70 px-4 py-2 text-sm text-slate-50 placeholder:text-slate-400 shadow-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:max-w-sm"
-                />
-                <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-                  <button
-                    onClick={scrollToWaitlist}
-                    className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
-                  >
-                    Join the waitlist
-                  </button>
-                  <button
-                    onClick={() => router.push("/premium")}
-                    className="text-sm font-medium text-indigo-100 underline-offset-4 hover:underline"
-                  >
-                    Get Premium for ${monthlyPrice}
-                  </button>
-                </div>
+                {heroSubmitted ? (
+                  <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 px-6 py-4 text-center">
+                    <p className="font-semibold text-emerald-100">
+                      You&apos;re on the list.
+                    </p>
+                    <p className="mt-1 text-sm text-emerald-200/90">
+                      We&apos;ll email you before we launch in Boston.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <input
+                      type="email"
+                      placeholder="you@example.com"
+                      value={heroEmail}
+                      onChange={(e) => setHeroEmail(e.target.value)}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" && handleHeroWaitlistSubmit()
+                      }
+                      className="w-full max-w-xs rounded-full border border-slate-500/60 bg-slate-900/70 px-4 py-2 text-sm text-slate-50 placeholder:text-slate-400 shadow-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:max-w-sm"
+                    />
+                    <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                      <button
+                        onClick={handleHeroWaitlistSubmit}
+                        disabled={heroLoading}
+                        className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                      >
+                        {heroLoading ? "Joining…" : "Join the waitlist"}
+                      </button>
+                      <button
+                        onClick={() => router.push("/premium")}
+                        className="text-sm font-medium text-indigo-100 underline-offset-4 hover:underline"
+                      >
+                        {`Get Premium for $${monthlyPrice}`}
+                      </button>
+                    </div>
+                    {heroError && (
+                      <p className="w-full text-center text-sm text-rose-300">
+                        {heroError}
+                      </p>
+                    )}
+                  </>
+                )}
               </div>
 
               <p className="mt-3 text-xs text-slate-300">
