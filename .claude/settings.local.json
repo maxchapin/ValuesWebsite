@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesWebsite\\\\app\\\\.well-known\\\\apple-app-site-association\")",
+      "Bash(Out-Null)",
+      "Bash(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesWebsite\\\\app\\\\.well-known\\\\assetlinks.json\")",
+      "Bash(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesWebsite\\\\app\\\\checkin\")",
+      "Bash(Write-Output \"Directories created\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesWebsite\\\\app\\\\.well-known\\\\apple-app-site-association\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesWebsite\\\\app\\\\.well-known\\\\assetlinks.json\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesWebsite\\\\app\\\\checkin\")",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\ValuesApp\" | Select-Object Name, @{Name=\"Type\";Expression={if\\($_.PSIsContainer\\){\"Directory\"}else{\"File\"}}} | Format-Table)",
+      "Bash(Get-ChildItem -Recurse -Depth 3 -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(pwd && ls -la \"C:\\\\Users\\\\maxch\\\\OneDrive\\\\Documents\\\\\" | head -30)",
+      "Read(//c/Users/maxch/OneDrive/**)"
+    ]
+  }
+}
