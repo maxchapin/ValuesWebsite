@@ -48,12 +48,17 @@ export default function PrivacyPolicyPage() {
             <span className="font-semibold text-slate-900">
               Location information.
             </span>{" "}
-            With your permission, we collect precise or approximate location
-            data from your device. We use this to show you nearby venues, to
-            power QR code venue check-ins, and to detect when you and another
-            user have overlapped at the same venue so we can surface a
-            potential match. You can disable location access in your device
-            settings, but doing so will limit or disable these features.
+            With your permission, we access your device&rsquo;s precise,
+            real-time GPS location while you are using the App. We request
+            this &ldquo;while using the app&rdquo; location permission
+            specifically to support venue check-ins: when you scan a venue QR
+            code, we use your live location to confirm you are physically
+            present at that venue, to show you venues near you, and to detect
+            when you and another user have overlapped at the same venue so we
+            can surface a potential match. We do not access your location in
+            the background or when the App is closed. You can disable
+            location access at any time in your device settings, but doing so
+            will disable venue check-ins and overlap-based matching.
           </li>
           <li>
             <span className="font-semibold text-slate-900">
