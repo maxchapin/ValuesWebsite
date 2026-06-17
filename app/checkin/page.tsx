@@ -9,24 +9,46 @@ interface PageProps {
 }
 
 async function fetchVenueName(token: string): Promise<string | null> {
+  console.log("[checkin] fetchVenueName called with token:", JSON.stringify(token));
+  console.log("[checkin] token length:", token.length, "| chars:", [...token].map(c => c.charCodeAt(0)));
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
+  console.log("[checkin] SUPABASE_URL present:", !!url, "| ANON_KEY present:", !!key);
+
+  if (!url || !key) {
+    console.error("[checkin] Missing Supabase env vars — aborting lookup");
+    return null;
+  }
 
   const supabase = createClient(url, key);
-  // Assumes a `venues` table with `token` (text, unique) and `name` (text) columns
-  const { data } = await supabase
+  console.log("[checkin] Querying venues table for token:", JSON.stringify(token));
+
+  const { data, error, status, statusText } = await supabase
     .from("venues")
     .select("name")
     .eq("token", token)
     .single();
 
-  return data?.name ?? null;
+  console.log("[checkin] Supabase response — status:", status, statusText);
+  console.log("[checkin] Supabase data:", JSON.stringify(data));
+  if (error) {
+    console.error("[checkin] Supabase error:", JSON.stringify(error));
+  }
+
+  const result = data?.name ?? null;
+  console.log("[checkin] Resolved venue name:", result);
+  return result;
 }
 
 export default async function CheckinPage({ searchParams }: PageProps) {
-  const token = searchParams.token ?? "";
+  const rawToken = searchParams.token;
+  const token = rawToken ?? "";
+  console.log("[checkin] Page hit — raw token from URL:", JSON.stringify(rawToken));
+  console.log("[checkin] Sanitised token:", JSON.stringify(token), "| empty?", token === "");
+
   const venueName = token ? await fetchVenueName(token) : null;
+  console.log("[checkin] Final venueName:", venueName, "| will show:", venueName ? "venue found" : token ? "invalid token" : "no token");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-slate-950 px-6 py-12 text-slate-50">

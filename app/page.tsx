@@ -715,19 +715,19 @@ const HomePage: React.FC = () => {
             <p>© {currentYear} Wicked Values</p>
             <div className="flex flex-wrap items-center gap-4">
               <a
-                href="#"
+                href="/privacy"
                 className="hover:text-slate-100 hover:underline underline-offset-2"
               >
                 Privacy
               </a>
               <a
-                href="#"
+                href="/terms"
                 className="hover:text-slate-100 hover:underline underline-offset-2"
               >
                 Terms
               </a>
               <a
-                href="#"
+                href="mailto:maxchapin430@gmail.com"
                 className="hover:text-slate-100 hover:underline underline-offset-2"
               >
                 Contact
