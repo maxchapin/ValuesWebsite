@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import LegalPage, { LegalSection } from "../../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Values",
+  title: "Privacy Policy | The Local",
   description:
-    "How Values collects, uses, and protects your information, including profile data, location, push notifications, and venue check-ins."
+    "How The Local collects, uses, and protects your information, including profile data, location, push notifications, and venue check-ins."
 };
 
 const EFFECTIVE_DATE = "June 16, 2026";
@@ -15,11 +15,13 @@ export default function PrivacyPolicyPage() {
     <LegalPage title="Privacy Policy" effectiveDate={EFFECTIVE_DATE}>
       <LegalSection heading="1. Introduction">
         <p>
-          Values (&ldquo;Values,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
-          &ldquo;our&rdquo;) is a values-based dating app developed and
-          operated by Maxwell Chapin. This Privacy Policy explains what
-          information we collect through the Values mobile application (the
-          &ldquo;App&rdquo;), how we use and share it, and the choices you
+          The Local (&ldquo;The Local,&rdquo; &ldquo;we,&rdquo;
+          &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is a Boston-first dating app
+          that helps you connect with people you&rsquo;ve crossed paths with
+          in real life, developed and operated by Maxwell Chapin. This
+          Privacy Policy explains what information we collect through The
+          Local mobile application (the &ldquo;App&rdquo;), how we use and
+          share it, and the choices you
           have. By creating an account or otherwise using the App, you agree
           to the practices described in this policy.
         </p>
@@ -34,8 +36,7 @@ export default function PrivacyPolicyPage() {
             </span>{" "}
             Information you provide when creating or updating your profile,
             such as your name, date of birth, gender, photos, bio, dating
-            preferences, relationship goals, and the personal values you
-            select or rank as part of our matching process.
+            preferences, and relationship goals.
           </li>
           <li>
             <span className="font-semibold text-slate-900">
@@ -101,8 +102,8 @@ export default function PrivacyPolicyPage() {
         <ul className="list-disc space-y-2 pl-5">
           <li>Create and maintain your account and profile;</li>
           <li>
-            Calculate compatibility and surface matches based on shared
-            values and preferences;
+            Surface matches based on venue check-ins, location overlap, and
+            your preferences;
           </li>
           <li>
             Operate venue check-ins and detect when you and another user have
@@ -135,9 +136,9 @@ export default function PrivacyPolicyPage() {
             <span className="font-semibold text-slate-900">
               With other users.
             </span>{" "}
-            Your profile information (such as your photos, bio, and shared
-            values) is visible to other users as part of the App&rsquo;s
-            discovery and matching flow. If you check in at a venue,
+            Your profile information (such as your photos and bio) is
+            visible to other users as part of the App&rsquo;s discovery and
+            matching flow. If you check in at a venue,
             information about that overlap may be shared with other users who
             checked in during the same window.
           </li>
@@ -172,16 +173,17 @@ export default function PrivacyPolicyPage() {
             </span>{" "}
             We may disclose information if required by law, legal process, or
             government request, or if we believe disclosure is necessary to
-            protect the rights, property, or safety of Values, our users, or
-            the public, or to investigate fraud, security, or technical
+            protect the rights, property, or safety of The Local, our users,
+            or the public, or to investigate fraud, security, or technical
             issues.
           </li>
           <li>
             <span className="font-semibold text-slate-900">
               Business transfers.
             </span>{" "}
-            If Values is involved in a merger, acquisition, financing, or sale
-            of assets, your information may be transferred as part of that
+            If The Local is involved in a merger, acquisition, financing, or
+            sale of assets, your information may be transferred as part of
+            that
             transaction.
           </li>
         </ul>
@@ -244,7 +246,7 @@ export default function PrivacyPolicyPage() {
 
       <LegalSection heading="7. Children's Privacy">
         <p>
-          Values is intended only for users who are at least 18 years old. We
+          The Local is intended only for users who are at least 18 years old. We
           do not knowingly collect personal information from anyone under 18.
           If we learn that we have collected information from a user under
           18, we will delete that information and terminate the associated
@@ -290,7 +292,7 @@ export default function PrivacyPolicyPage() {
         <p>
           Maxwell Chapin
           <br />
-          Values
+          The Local
           <br />
           <a
             href={`mailto:${CONTACT_EMAIL}`}

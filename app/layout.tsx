@@ -3,9 +3,10 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wicked Values | Boston dates for people with standards",
+  metadataBase: new URL("https://thelocaldating.com"),
+  title: "The Local | Boston dates for people with standards",
   description:
-    "Wicked Values is a Boston-first dating app for singles with high standards who care about relationship values and in-person experiences."
+    "The Local is a Boston-first dating app for singles with high standards who care about relationship values and in-person experiences."
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

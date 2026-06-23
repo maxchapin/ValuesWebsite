@@ -275,7 +275,7 @@ const WaitlistForm: React.FC<{ prefillEmail?: string }> = ({
               <p className="text-sm text-rose-600">{submitError}</p>
             )}
             <p className="text-xs text-slate-500">
-              No spam. We&apos;ll only email you about Wicked Values.
+              No spam. We&apos;ll only email you about The Local.
             </p>
           </div>
         </form>
@@ -285,7 +285,7 @@ const WaitlistForm: React.FC<{ prefillEmail?: string }> = ({
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-sm text-emerald-900 sm:p-8">
           <p className="font-semibold">Thank you for joining the waitlist.</p>
           <p className="mt-1">
-            We&apos;ll be in touch as we get closer to launching Wicked Values
+            We&apos;ll be in touch as we get closer to launching The Local
             in Boston—and we may reach out for your perspective as we shape the
             first version.
           </p>
@@ -405,10 +405,10 @@ const HomePage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white shadow-sm">
-                WV
+                TL
               </div>
               <span className="text-sm font-semibold tracking-tight text-slate-50">
-                Wicked Values
+                The Local
               </span>
             </div>
             <button
@@ -431,12 +431,13 @@ const HomePage: React.FC = () => {
               </div>
 
               <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-50 sm:text-4xl lg:text-5xl">
-                Boston dates for people with wicked high standards.
+                Meet Boston singles you&apos;ve actually crossed paths with.
               </h1>
 
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 sm:text-base mx-auto">
-                A values-first dating app that connects Boston singles through
-                aligned beliefs and curated real-life events.
+                Check in at your regular bar, coffee shop, or the spot you
+                tried last weekend—and see the real people from your real
+                life who&apos;ve been there too.
               </p>
 
               <div className="mt-6 flex flex-col items-center gap-3">
@@ -486,8 +487,9 @@ const HomePage: React.FC = () => {
               </div>
 
               <p className="mt-3 text-xs text-slate-300">
-                Built for Boston singles who care more about values, effort, and
-                real-life connection than just another swipe.
+                Built for Boston singles who&apos;d rather meet someone
+                they&apos;ve already crossed paths with than swipe through
+                strangers.
               </p>
             </div>
           </section>
@@ -496,50 +498,52 @@ const HomePage: React.FC = () => {
           <section className="space-y-6">
             <div>
               <h2 className="text-xl font-bold tracking-tight text-slate-50 sm:text-2xl">
-                How Wicked Values works
+                How The Local works
               </h2>
               <p className="mt-2 max-w-2xl text-sm text-slate-200">
-                Not another mindless swipe machine. Wicked Values keeps things
-                simple and intentional.
+                Check in at the places you already go. We&apos;ll show you who
+                else has been there.
               </p>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-3">
               <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-lg">
-                  📝
+                  📍
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">
-                  Share your values
+                  Check in at a venue
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Choose your top 5, 10, and 20 relationship values.
+                  Scan a QR code at any participating bar, coffee shop, or
+                  restaurant.
                 </p>
               </div>
 
               <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-lg">
-                  🧭
+                  👀
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">
-                  See aligned Boston singles
+                  See who crossed your path
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  We highlight people who share your values and dating preferences.
-                  goals.
+                  For the next few days, other people who checked into the
+                  same spot show up in your Discover feed with a badge
+                  showing where you overlapped.
                 </p>
               </div>
 
               <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-lg">
-                  ☕
+                  💬
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">
-                  Meet at curated IRL events
+                  Match and chat
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Coming soon: From coffee meetups to small gatherings, we create ways to
-                  meet off-screen.
+                  Mutual interest unlocks real-time chat—no cold approaches,
+                  no strangers from across the city.
                 </p>
               </div>
             </div>
@@ -549,35 +553,42 @@ const HomePage: React.FC = () => {
           <section className="space-y-8">
             <div className="max-w-2xl">
               <h2 className="text-xl font-bold tracking-tight text-slate-50 sm:text-2xl">
-                Built for Boston singles with standards
+                Why it&apos;s different
               </h2>
               <p className="mt-2 text-sm text-slate-200">
-                If you&apos;re serious about who you spend your time with, the
-                average dating app can feel like a bad fit.
+                Every other dating app gives you a pool of thousands of
+                strangers and asks you to swipe until something sticks. The
+                Local asks a smaller, more interesting question: what about
+                the people already moving through your world?
               </p>
 
               <ul className="mt-4 space-y-2 text-sm text-slate-200">
                 <li className="flex gap-2">
                   <span className="mt-0.5 text-indigo-300">•</span>
                   <span>
-                    Tired of endless swiping and low-effort matches.
+                    The person who&apos;s been at your favorite coffee shop
+                    three times this month.
                   </span>
                 </li>
                 <li className="flex gap-2">
                   <span className="mt-0.5 text-indigo-300">•</span>
-                  <span>
-                    Done wasting time with people who don&apos;t share your
-                    values.
-                  </span>
+                  <span>The one who was at that bar last Friday.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="mt-0.5 text-indigo-300">•</span>
                   <span>
-                    Want real-life connection, not just another chat that goes
-                    nowhere.
+                    You&apos;ve probably already been in the same room as
+                    someone worth meeting—The Local makes that visible.
                   </span>
                 </li>
               </ul>
+
+              <p className="mt-4 text-sm text-slate-200">
+                There&apos;s no cold approach and no unsolicited messages. You
+                check in, they check in, and if there&apos;s mutual interest,
+                you connect—already knowing you&apos;ve genuinely crossed
+                paths.
+              </p>
             </div>
 
             {/*<div className="max-w-xl rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
@@ -587,7 +598,7 @@ const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    Max, Founder of Wicked Values
+                    Max, Founder of The Local
                   </p>
                   <p className="text-xs text-slate-500">
                     Building in Boston, for Boston.
@@ -597,7 +608,7 @@ const HomePage: React.FC = () => {
               <p className="mt-3 text-sm text-slate-700">
                 I kept meeting thoughtful, values-driven people in Boston who
                 were exhausted by apps that feel more like games than tools for
-                building a real relationship. Wicked Values is my attempt to
+                building a real relationship. The Local is my attempt to
                 flip that script—less swiping, more alignment, and more chances
                 to actually meet in person.
               </p>
@@ -617,8 +628,8 @@ const HomePage: React.FC = () => {
                     Join the early access list
                   </h2>
                   <p className="mt-2 text-sm text-slate-700">
-                    Help us test Wicked Values in Boston and shape how a
-                    values-first dating app should actually work.
+                    Help us test The Local in Boston as we roll out check-ins
+                    at real venues.
                   </p>
 
                   <ul className="mt-4 space-y-2 text-sm text-slate-900">
@@ -628,7 +639,10 @@ const HomePage: React.FC = () => {
                     </li>
                     <li className="flex gap-2">
                       <span className="mt-0.5 text-indigo-600">✓</span>
-                      <span>Invites to early Wicked Values IRL meetups.</span>
+                      <span>
+                        Early access to check-ins at Boston bars and coffee
+                        shops.
+                      </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="mt-0.5 text-indigo-600">✓</span>
@@ -666,11 +680,23 @@ const HomePage: React.FC = () => {
             <div className="grid gap-4 lg:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm shadow-sm sm:p-5">
                 <p className="font-semibold text-slate-900">
-                  Is Wicked Values live yet?
+                  Is The Local live yet?
                 </p>
                 <p className="mt-1 text-slate-600">
                   We&apos;re currently building and launching first in Boston.
                   Join the waitlist to be part of the very first group.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm shadow-sm sm:p-5">
+                <p className="font-semibold text-slate-900">
+                  How do check-ins work?
+                </p>
+                <p className="mt-1 text-slate-600">
+                  Scan a QR code at a participating bar, coffee shop, or
+                  restaurant. For the next few days, other people who checked
+                  in there show up in your Discover feed with a badge showing
+                  where your paths crossed.
                 </p>
               </div>
 
@@ -688,10 +714,10 @@ const HomePage: React.FC = () => {
                   How is this different from other apps?
                 </p>
                 <p className="mt-1 text-slate-600">
-                  Wicked Values starts with your non-negotiables and
-                  life-orientation, then focuses on curated IRL experiences
-                  instead of endless chatting. Less noise, more meaningful
-                  matches and chances to actually meet.
+                  Instead of an algorithm guessing who you might like, The
+                  Local shows you people who&apos;ve actually been to the
+                  same places as you—checked in at the same bar, coffee shop,
+                  or restaurant. Less noise, more real-life overlap.
                 </p>
               </div>
 
@@ -712,7 +738,7 @@ const HomePage: React.FC = () => {
         {/* Footer */}
         <footer className="mt-12 border-t border-slate-700/50 pt-6 text-xs text-slate-300 sm:mt-16 sm:pt-8">
           <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <p>© {currentYear} Wicked Values</p>
+            <p>© {currentYear} The Local</p>
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href="/privacy"

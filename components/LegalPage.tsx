@@ -22,14 +22,14 @@ export default function LegalPage({
             href="/"
             className="text-xs font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline"
           >
-            ← Back to Values
+            ← Back to The Local
           </Link>
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-indigo-600 text-xs font-extrabold text-white shadow-sm">
-              V
+              TL
             </div>
             <span className="text-xs font-semibold tracking-wide text-slate-400">
-              Values
+              The Local
             </span>
           </div>
         </header>
@@ -48,7 +48,7 @@ export default function LegalPage({
         </article>
 
         <footer className="mt-10 border-t border-slate-700/50 pt-6 text-xs text-slate-400">
-          <p>&copy; {new Date().getFullYear()} Values. Boston-first.</p>
+          <p>&copy; {new Date().getFullYear()} The Local. Boston-first.</p>
           <p className="mt-2">
             Questions about this {title.toLowerCase()}? Contact{" "}
             <a

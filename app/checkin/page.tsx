@@ -56,10 +56,10 @@ export default async function CheckinPage({ searchParams }: PageProps) {
         {/* Logo */}
         <div className="flex flex-col items-center gap-2">
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-xl font-extrabold text-white shadow-lg">
-            V
+            TL
           </div>
           <span className="text-sm font-semibold tracking-wide text-slate-400">
-            Values
+            The Local
           </span>
         </div>
 
@@ -97,7 +97,7 @@ export default async function CheckinPage({ searchParams }: PageProps) {
 
           {venueName && (
             <p className="text-base text-slate-300">
-              Download Values to connect with people who were there too.
+              Download The Local to connect with people who were there too.
             </p>
           )}
         </div>
@@ -149,7 +149,7 @@ export default async function CheckinPage({ searchParams }: PageProps) {
         )}
 
         <p className="text-xs text-slate-600">
-          &copy; {new Date().getFullYear()} Values. Boston-first.
+          &copy; {new Date().getFullYear()} The Local. Boston-first.
         </p>
       </div>
     </main>

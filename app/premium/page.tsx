@@ -227,14 +227,14 @@ const PremiumPage: React.FC = () => {
             onClick={() => router.push("/")}
             className="text-xs font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline"
           >
-            ← Back to Wicked Values
+            ← Back to The Local
           </button>
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white shadow-sm">
-              WV
+              TL
             </div>
             <span className="text-xs font-semibold tracking-tight text-slate-50">
-              Wicked Values · Premium
+              The Local · Premium
             </span>
           </div>
         </header>
@@ -245,9 +245,9 @@ const PremiumPage: React.FC = () => {
               Founding member pricing
             </h1>
             <p className="text-sm text-slate-200">
-              We&apos;re exploring what serious, values-first dating in Boston is
-              worth. Choose a plan below to reserve your spot—no payment
-              collected today.
+              We&apos;re exploring what dating based on real-life
+              overlap—not endless swiping—is worth in Boston. Choose a plan
+              below to reserve your spot—no payment collected today.
             </p>
             <p className="text-xs text-slate-400">
               You&apos;re seeing variant{" "}
@@ -286,10 +286,10 @@ const PremiumPage: React.FC = () => {
                 </div>
 
                 <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  <li>Unlimited values-based matching</li>
-                  <li>4 IRL events/month</li>
-                  <li>Priority event access</li>
-                  <li>Advanced filters</li>
+                  <li>Unlimited check-ins &amp; Discover</li>
+                  <li>See everyone you&apos;ve crossed paths with</li>
+                  <li>Priority placement in Discover</li>
+                  <li>Advanced filters (age, distance, gender)</li>
                 </ul>
 
                 <button
@@ -322,10 +322,10 @@ const PremiumPage: React.FC = () => {
                 </div>
 
                 <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  <li>Unlimited values-based matching</li>
-                  <li>4 IRL events/month</li>
-                  <li>Priority event access</li>
-                  <li>Advanced filters</li>
+                  <li>Unlimited check-ins &amp; Discover</li>
+                  <li>See everyone you&apos;ve crossed paths with</li>
+                  <li>Priority placement in Discover</li>
+                  <li>Advanced filters (age, distance, gender)</li>
                 </ul>
 
                 <button
@@ -460,8 +460,8 @@ const PremiumPage: React.FC = () => {
                     Share with a friend who hates swiping
                   </p>
                   <p className="mt-1">
-                    Tell them to join the waitlist—Boston-first, values-first,
-                    IRL-forward.
+                    Tell them to join the waitlist—Boston-first,
+                    real-life-first, no endless swiping.
                   </p>
                 </div>
               </div>

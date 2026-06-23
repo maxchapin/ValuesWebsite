@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import LegalPage, { LegalSection } from "../../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Values",
+  title: "Terms of Service | The Local",
   description:
-    "The terms and conditions that govern your use of the Values mobile app."
+    "The terms and conditions that govern your use of The Local mobile app."
 };
 
 const EFFECTIVE_DATE = "June 16, 2026";
@@ -17,9 +17,9 @@ export default function TermsOfServicePage() {
         <p>
           These Terms of Service (&ldquo;Terms&rdquo;) form a binding
           agreement between you and Maxwell Chapin, the developer and
-          operator of Values (&ldquo;Values,&rdquo; &ldquo;we,&rdquo;
+          operator of The Local (&ldquo;The Local,&rdquo; &ldquo;we,&rdquo;
           &ldquo;us,&rdquo; or &ldquo;our&rdquo;), governing your access to
-          and use of the Values mobile application (the &ldquo;App&rdquo;).
+          and use of The Local mobile application (the &ldquo;App&rdquo;).
           By creating an account or otherwise using the App, you agree to be
           bound by these Terms. If you do not agree, do not use the App.
         </p>
@@ -54,8 +54,8 @@ export default function TermsOfServicePage() {
 
       <LegalSection heading="4. The Service">
         <p>
-          Values helps users discover and connect with other people based on
-          shared personal values, and offers features such as a
+          The Local helps users discover and connect with people they&rsquo;ve
+          crossed paths with in real life, and offers features such as a
           discovery/matching flow, QR code venue check-ins, and push
           notifications when your check-in history overlaps with another
           user&rsquo;s at the same venue. We may add, change, suspend, or
@@ -147,7 +147,7 @@ export default function TermsOfServicePage() {
 
       <LegalSection heading="8. Safety and Your Interactions With Other Users">
         <p>
-          Values does not conduct criminal background checks on users or
+          The Local does not conduct criminal background checks on users or
           verify the identity, age, or intentions of any user beyond the
           information they provide. You are solely responsible for your
           interactions with other users, both within the App and in person.
@@ -158,7 +158,7 @@ export default function TermsOfServicePage() {
           arranging your own transportation.
         </p>
         <p>
-          You agree that Values is not responsible for the conduct of any
+          You agree that The Local is not responsible for the conduct of any
           user, whether online or in person, and you release us from any
           claims, damages, or liabilities arising from your interactions with
           other users.
@@ -190,8 +190,8 @@ export default function TermsOfServicePage() {
 
       <LegalSection heading="11. Limitation of Liability">
         <p>
-          TO THE MAXIMUM EXTENT PERMITTED BY LAW, MAXWELL CHAPIN AND VALUES
-          WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+          TO THE MAXIMUM EXTENT PERMITTED BY LAW, MAXWELL CHAPIN AND THE
+          LOCAL WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
           CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, OR
           GOODWILL, ARISING FROM OR RELATED TO YOUR USE OF THE APP, EVEN IF WE
           HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR TOTAL
@@ -206,8 +206,8 @@ export default function TermsOfServicePage() {
 
       <LegalSection heading="12. Indemnification">
         <p>
-          You agree to indemnify and hold harmless Maxwell Chapin and Values
-          from any claims, damages, losses, liabilities, and expenses
+          You agree to indemnify and hold harmless Maxwell Chapin and The
+          Local from any claims, damages, losses, liabilities, and expenses
           (including reasonable attorneys&rsquo; fees) arising out of or
           related to your use of the App, your violation of these Terms, or
           your violation of any rights of a third party.
@@ -240,7 +240,7 @@ export default function TermsOfServicePage() {
         <p>
           Maxwell Chapin
           <br />
-          Values
+          The Local
           <br />
           <a
             href={`mailto:${CONTACT_EMAIL}`}
