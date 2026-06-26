@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const EFFECTIVE_DATE = "June 16, 2026";
-const CONTACT_EMAIL = "maxchapin430@gmail.com";
+const CONTACT_EMAIL = "contact@thelocaldating.com";
 
 export default function TermsOfServicePage() {
   return (

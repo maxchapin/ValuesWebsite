@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 
-const CONTACT_EMAIL = "maxchapin430@gmail.com";
+const CONTACT_EMAIL = "contact@thelocaldating.com";
 
 interface LegalPageProps {
   title: string;

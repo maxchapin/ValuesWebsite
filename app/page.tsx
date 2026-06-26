@@ -753,7 +753,7 @@ const HomePage: React.FC = () => {
                 Terms
               </a>
               <a
-                href="mailto:maxchapin430@gmail.com"
+                href="mailto:contact@thelocaldating.com"
                 className="hover:text-slate-100 hover:underline underline-offset-2"
               >
                 Contact
