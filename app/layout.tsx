@@ -6,7 +6,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://thelocaldating.com"),
   title: "The Local | Boston dates for people with standards",
   description:
-    "The Local is a Boston-first dating app for singles with high standards who care about relationship values and in-person experiences."
+    "The Local is a Boston-first dating app for singles with high standards who care about relationship values and in-person experiences.",
+  icons: {
+    icon: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png"
+  }
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
